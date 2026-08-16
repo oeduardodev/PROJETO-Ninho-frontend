@@ -62,7 +62,6 @@ export const Colors = {
     overlay: "rgba(0, 0, 0, 0.64)",
     disabled: palette.gray800,
     disabledContent: "#77727E",
-    google: "#8AB4F8",
     tint: palette.purple300,
     tabIconDefault: "#77727E",
     tabIconSelected: palette.purple300,

@@ -1,13 +1,17 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import { RootStackParamList } from "@/routes/types/navigation";
-import { Colors } from "@/theme/colors";
+import { AppTheme } from "@/theme";
+import { useAppTheme } from "@/theme/ThemeProvider";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
-export default function Home({ navigation }: Props) {
+export default function Home(_props: Props) {
+  const theme = useAppTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Ninho</Text>
@@ -16,38 +20,35 @@ export default function Home({ navigation }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (theme: AppTheme) => StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 24,
-    backgroundColor: Colors.light.background,
+    padding: theme.spacing.xl,
+    backgroundColor: theme.colors.background,
   },
   title: {
-    fontSize: 32,
-    fontWeight: "700",
-    color: Colors.light.text,
-    marginBottom: 12,
+    ...theme.typography.heading1,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.md,
   },
   description: {
-    fontSize: 16,
-    lineHeight: 24,
+    ...theme.typography.body,
     textAlign: "center",
-    color: Colors.light.icon,
-    marginBottom: 24,
+    color: theme.colors.textMuted,
+    marginBottom: theme.spacing.xl,
   },
   button: {
     minWidth: 180,
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    borderRadius: 12,
+    paddingHorizontal: theme.spacing.xl,
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.radii.md,
     alignItems: "center",
-    backgroundColor: Colors.light.tint,
+    backgroundColor: theme.colors.primary,
   },
   buttonText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#FFFFFF",
+    ...theme.typography.label,
+    color: theme.colors.textOnPrimary,
   },
 });

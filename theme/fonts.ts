@@ -1,21 +1,17 @@
 import { Platform, TextStyle } from "react-native";
 
-const systemSans = Platform.select({
-  ios: "System",
-  android: "sans-serif",
-  default: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-});
-
 const systemMono = Platform.select({
-  ios: "Menlo",
+  ios: "Courier New",
   android: "monospace",
-  default: "Menlo, Monaco, Consolas, 'Liberation Mono', monospace",
+  default: "Monaco, Consolas, 'Liberation Mono', monospace",
 });
 
 export const fontFamilies = {
   brand: "TTRamillas",
   brandBold: "TTRamillasBold",
-  body: systemSans,
+  body: "Nunito_400Regular",
+  bodySemibold: "Nunito_600SemiBold",
+  bodyBold: "Nunito_700Bold",
   mono: systemMono,
 } as const;
 
@@ -76,10 +72,9 @@ export const typography = {
     lineHeight: lineHeights.sm,
   },
   label: {
-    fontFamily: fontFamilies.body,
+    fontFamily: fontFamilies.bodySemibold,
     fontSize: fontSizes.md,
     lineHeight: lineHeights.md,
-    fontWeight: fontWeights.semibold,
   },
   caption: {
     fontFamily: fontFamilies.body,

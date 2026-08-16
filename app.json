@@ -28,7 +28,8 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-router"
     ],
     "experiments": {
       "reactCompiler": true

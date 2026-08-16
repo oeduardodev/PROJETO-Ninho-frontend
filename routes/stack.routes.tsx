@@ -4,6 +4,11 @@ import {
   NavigationContainer,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  Nunito_400Regular,
+  Nunito_600SemiBold,
+  Nunito_700Bold,
+} from "@expo-google-fonts/nunito";
 import { useFonts } from "expo-font";
 import React from "react";
 
@@ -17,6 +22,9 @@ export default function AppRoutes() {
   const [fontsLoaded] = useFonts({
     TTRamillas: require("../assets/fonts/tt_ramillas/TT Ramillas Trial Regular.ttf"),
     TTRamillasBold: require("../assets/fonts/tt_ramillas/TT Ramillas Trial Bold.ttf"),
+    Nunito_400Regular,
+    Nunito_600SemiBold,
+    Nunito_700Bold,
   });
 
   if (!fontsLoaded) {
