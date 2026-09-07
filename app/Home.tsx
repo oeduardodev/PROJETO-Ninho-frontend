@@ -20,35 +20,36 @@ export default function Home(_props: Props) {
   );
 }
 
-const createStyles = (theme: AppTheme) => StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: theme.spacing.xl,
-    backgroundColor: theme.colors.background,
-  },
-  title: {
-    ...theme.typography.heading1,
-    color: theme.colors.text,
-    marginBottom: theme.spacing.md,
-  },
-  description: {
-    ...theme.typography.body,
-    textAlign: "center",
-    color: theme.colors.textMuted,
-    marginBottom: theme.spacing.xl,
-  },
-  button: {
-    minWidth: 180,
-    paddingHorizontal: theme.spacing.xl,
-    paddingVertical: theme.spacing.md,
-    borderRadius: theme.radii.md,
-    alignItems: "center",
-    backgroundColor: theme.colors.primary,
-  },
-  buttonText: {
-    ...theme.typography.label,
-    color: theme.colors.textOnPrimary,
-  },
-});
+const createStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      padding: theme.spacing.xl,
+      backgroundColor: theme.colors.background,
+    },
+    title: {
+      ...theme.typography.heading1,
+      color: theme.colors.text,
+      marginBottom: theme.spacing.md,
+    },
+    description: {
+      ...theme.typography.body,
+      textAlign: "center",
+      color: theme.colors.textMuted,
+      marginBottom: theme.spacing.xl,
+    },
+    button: {
+      minWidth: 180,
+      paddingHorizontal: theme.spacing.xl,
+      paddingVertical: theme.spacing.md,
+      borderRadius: theme.radii.md,
+      alignItems: "center",
+      backgroundColor: theme.colors.primary,
+    },
+    buttonText: {
+      ...theme.typography.label,
+      color: theme.colors.textOnPrimary,
+    },
+  });

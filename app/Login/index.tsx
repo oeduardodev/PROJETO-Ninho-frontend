@@ -1,13 +1,17 @@
 import { AntDesign } from "@expo/vector-icons";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useMemo, useState } from "react";
 import { Alert, Image, Text, TextInput, View } from "react-native";
 
 import { Button } from "@/components";
+import type { RootStackParamList } from "@/routes/types/navigation";
 import { useAppTheme } from "@/theme/ThemeProvider";
 
 import { createStyles } from "./styles";
 
-export default function Login() {
+type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+
+export default function Login({ navigation }: Props) {
   const theme = useAppTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [loading, setLoading] = useState(false);
@@ -56,7 +60,7 @@ export default function Login() {
 
         <TextInput
           style={styles.input}
-          placeholder="E-mail"
+          placeholder="E-mail ou usuário"
           placeholderTextColor={theme.colors.textMuted}
           keyboardType="email-address"
           autoCapitalize="none"
@@ -101,7 +105,13 @@ export default function Login() {
         />
         <Text style={styles.registerText}>
           Ainda não tem uma conta?
-          <Text style={styles.spanPressable}> Clique aqui </Text>
+          <Text
+            accessibilityRole="link"
+            onPress={() => navigation.navigate("Register")}
+            style={styles.spanPressable}
+          >
+            {" Clique aqui "}
+          </Text>
         </Text>
       </View>
     </View>
