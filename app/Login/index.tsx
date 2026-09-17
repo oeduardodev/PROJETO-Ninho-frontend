@@ -4,7 +4,9 @@ import React, { useMemo, useState } from "react";
 import { Alert, Image, Text, TextInput, View } from "react-native";
 
 import { Button } from "@/components";
+import { useAuth } from "@/contexts/AuthContext";
 import type { RootStackParamList } from "@/routes/types/navigation";
+import { getErrorMessage } from "@/services/api";
 import { useAppTheme } from "@/theme/ThemeProvider";
 
 import { createStyles } from "./styles";
@@ -13,6 +15,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export default function Login({ navigation }: Props) {
   const theme = useAppTheme();
+  const { signIn } = useAuth();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
@@ -26,10 +29,9 @@ export default function Login({ navigation }: Props) {
 
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      Alert.alert("Sucesso", "Login realizado!");
-    } catch {
-      Alert.alert("Erro", "Não foi possível realizar o login.");
+      await signIn({ email: email.trim(), password });
+    } catch (error) {
+      Alert.alert("Erro", getErrorMessage(error));
     } finally {
       setLoading(false);
     }
@@ -60,7 +62,7 @@ export default function Login({ navigation }: Props) {
 
         <TextInput
           style={styles.input}
-          placeholder="E-mail ou usuário"
+          placeholder="E-mail"
           placeholderTextColor={theme.colors.textMuted}
           keyboardType="email-address"
           autoCapitalize="none"

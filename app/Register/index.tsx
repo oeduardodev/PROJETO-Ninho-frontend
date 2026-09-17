@@ -1,14 +1,21 @@
 import { AntDesign } from "@expo/vector-icons";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useMemo, useState } from "react";
 import { Alert, Image, Text, TextInput, View } from "react-native";
 
 import { Button } from "@/components";
+import { useAuth } from "@/contexts/AuthContext";
+import type { RootStackParamList } from "@/routes/types/navigation";
+import { getErrorMessage } from "@/services/api";
 import { useAppTheme } from "@/theme/ThemeProvider";
 
 import { createStyles } from "./styles";
 
-export default function Register() {
+type Props = NativeStackScreenProps<RootStackParamList, "Register">;
+
+export default function Register({ navigation }: Props) {
   const theme = useAppTheme();
+  const { signUp } = useAuth();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
@@ -27,12 +34,21 @@ export default function Register() {
       return;
     }
 
+    if (password !== passwordConfirm) {
+      Alert.alert("Erro", "As senhas não coincidem.");
+      return;
+    }
+
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      Alert.alert("Sucesso", "Cadastro realizado!");
-    } catch {
-      Alert.alert("Erro", "Não foi possível realizar o cadastro.");
+      await signUp({
+        email: email.trim(),
+        phone: phone.trim(),
+        password,
+        passwordConfirmation: passwordConfirm,
+      });
+    } catch (error) {
+      Alert.alert("Erro", getErrorMessage(error));
     } finally {
       setLoading(false);
     }
@@ -72,7 +88,7 @@ export default function Register() {
         />
         <TextInput
           style={styles.input}
-          placeholder="telefone"
+          placeholder="Telefone"
           placeholderTextColor={theme.colors.textMuted}
           keyboardType="phone-pad"
           autoCapitalize="none"
@@ -122,6 +138,16 @@ export default function Register() {
             />
           }
         />
+        <Text style={styles.registerText}>
+          Já tem uma conta?
+          <Text
+            accessibilityRole="link"
+            onPress={() => navigation.navigate("Login")}
+            style={styles.spanPressable}
+          >
+            {" Entrar "}
+          </Text>
+        </Text>
       </View>
     </View>
   );

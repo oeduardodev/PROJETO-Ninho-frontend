@@ -12,8 +12,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import React from "react";
 
+import Home from "@/app/Home";
 import Login from "@/app/Login";
 import Register from "@/app/Register";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { RootStackParamList } from "@/routes/types/navigation";
 import { AppThemeProvider, useAppTheme } from "@/theme/ThemeProvider";
 
@@ -34,13 +36,16 @@ export default function AppRoutes() {
 
   return (
     <AppThemeProvider>
-      <ThemedNavigation />
+      <AuthProvider>
+        <ThemedNavigation />
+      </AuthProvider>
     </AppThemeProvider>
   );
 }
 
 function ThemedNavigation() {
   const theme = useAppTheme();
+  const { user, initializing } = useAuth();
   const baseTheme =
     theme.mode === "dark" ? NavigationDarkTheme : NavigationLightTheme;
 
@@ -57,11 +62,19 @@ function ThemedNavigation() {
     },
   };
 
+  if (initializing) return null;
+
   return (
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
+        {user ? (
+          <Stack.Screen name="Home" component={Home} />
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
