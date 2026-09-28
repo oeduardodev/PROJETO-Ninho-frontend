@@ -2,7 +2,6 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useMemo, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 
-import { Button } from "@/components";
 import { useAuth } from "@/contexts/AuthContext";
 import { RootStackParamList } from "@/routes/types/navigation";
 import { getErrorMessage } from "@/services/api";
@@ -30,11 +29,10 @@ export default function Home(_props: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Ninho</Text>
+      <Text style={styles.title}>Comunidade</Text>
       <Text style={styles.description}>
-        Sessão iniciada como {user?.email}.
+        Voce não precisa passar por isso só.
       </Text>
-      <Button label="Sair" onPress={handleLogout} loading={loading} />
     </View>
   );
 }

@@ -4,6 +4,7 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   Home: undefined;
+  Comunidade: undefined;
   About: undefined;
 };
 
@@ -26,6 +27,11 @@ export type LoginScreenNavigationProp = NativeStackNavigationProp<
 export type AboutScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "About"
+>;
+
+export type ComunidadeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Comunidade"
 >;
 
 export {};

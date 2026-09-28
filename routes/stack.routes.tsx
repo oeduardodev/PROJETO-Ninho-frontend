@@ -12,7 +12,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import React from "react";
 
-import Home from "@/app/Home";
+import Comunidade from "@/app/Comunidade";
 import Login from "@/app/Login";
 import Register from "@/app/Register";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
@@ -68,7 +68,11 @@ function ThemedNavigation() {
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <Stack.Screen name="Home" component={Home} />
+          <>
+            <Stack.Screen name="Comunidade" component={Comunidade} />
+            {/* alias para compatibilidade com código que ainda navega para Home */}
+            <Stack.Screen name="Home" component={Comunidade} />
+          </>
         ) : (
           <>
             <Stack.Screen name="Login" component={Login} />
